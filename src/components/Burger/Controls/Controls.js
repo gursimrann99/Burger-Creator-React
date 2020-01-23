@@ -5,7 +5,7 @@ import Control from './Control/Control';
 
 const ingredients = [
     { label: 'Salad', type: 'salad' },
-    { label: 'Bacon', type: 'bacon' },
+    { label: 'Egg', type: 'egg' },
     { label: 'Cheese', type: 'cheese' },
     { label: 'Meat', type: 'meat' }
 ]
