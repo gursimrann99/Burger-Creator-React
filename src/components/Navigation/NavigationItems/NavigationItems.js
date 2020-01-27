@@ -16,7 +16,7 @@ const navigationItems = (props) => (
                 to='/orders'
                 
                 activeClassName={classes.active}
-            >Checkout</NavLink>
+            >Orders</NavLink>
         </li>
     </ul>
 );

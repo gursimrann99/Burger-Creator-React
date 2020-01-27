@@ -1,4 +1,5 @@
-import * as actionTypes from './actions';
+import * as actionTypes from '../actions/actions';
+
 const INGREDIENT_PRICES = {
     salad: 10,
     cheese: 10,
@@ -35,6 +36,11 @@ const reducer = (state = initialState, action) => {
                 },
                 price: state.price - INGREDIENT_PRICES[action.ingredientName]
             };
+        case actionTypes.BURGER_CREATION:
+            return {
+                ...initialState
+            }
+
         default:
             return state;
     }

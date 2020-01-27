@@ -2,14 +2,23 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
+import thunk from 'redux-thunk';
 
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import reducer from './store/reducers';
+import burgerCreationReducer from './store/reducers/burgerCreation';
+import ordersReducer from './store/reducers/order';
 
-const store = createStore(reducer);
+const rootReducer = combineReducers({
+    burgerCreation: burgerCreationReducer,
+    order: ordersReducer
+});
+
+
+ //const store = createStore(rootReducer,  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const store = createStore(rootReducer, applyMiddleware(thunk));
 
 const app = (
     <Provider store={store}>
