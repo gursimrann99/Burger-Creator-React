@@ -1,4 +1,5 @@
 import * as actionTypes from '../actions/actions';
+//import {combineReducers} from 'redux';
 
 const INGREDIENT_PRICES = {
     salad: 10,
@@ -13,7 +14,8 @@ const initialState = {
         cheese: 0,
         meat: 0
     },
-    price: 25
+    price: 25,
+    purchasing: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -25,7 +27,8 @@ const reducer = (state = initialState, action) => {
                     ...state.ingredients,
                     [action.ingredientName]: state.ingredients[action.ingredientName] + 1
                 },
-                price: state.price + INGREDIENT_PRICES[action.ingredientName]
+                price: state.price + INGREDIENT_PRICES[action.ingredientName],
+                purchasing: false
             }
         case actionTypes.REMOVE_INGREDIENT:
             return {
@@ -36,6 +39,11 @@ const reducer = (state = initialState, action) => {
                 },
                 price: state.price - INGREDIENT_PRICES[action.ingredientName]
             };
+        case actionTypes.PURCHASING:
+            return {
+                ...state,
+                purchasing: true
+            }
         case actionTypes.BURGER_CREATION:
             return {
                 ...initialState

@@ -19,10 +19,11 @@ const controls = (props) => (
                 removed={() => props.ingredientRemoved(ing.type)}
                 disabledInfo={props.disabled[ing.type]} />
         })}
+        {props.purchasable  ? 
         <button
             className={classes.OrderButton}
-            disabled={!props.purchasable}
-            onClick={props.ordered}>ORDER NOW</button>
+            onClick={props.ordered}>{props.isAuth?'ORDER NOW':'SIGN IN TO ORDER'}</button> :
+            null}
     </div>
 )
 

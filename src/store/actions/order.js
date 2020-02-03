@@ -1,5 +1,5 @@
 import * as actionTypes from './actions';
-import axios from '../../orders';
+import { axiosInstance } from '../../orders';
 
 export const purchaseBurgerSuccess = (id, orderData, histry) => {
     histry.push('/');
@@ -30,15 +30,16 @@ export const initialState = () => {
 }
 
 export const purchaseBurger = (orderData, history) => {
-    return dispatch => {
+    return (dispatch, getState) => {
         dispatch(purchaseBurgerStart());
-        axios.post('/orders.json', orderData)
+        let token = getState().auth.token
+        axiosInstance.post('/orders.json?auth=' + token, orderData)
             .then(res => {
                 dispatch(initialState());
                 dispatch(purchaseBurgerSuccess(res.data.name, orderData, history))
             })
             .catch(err => {
-                dispatch(purchaseBurgerFail());
+                dispatch(purchaseBurgerFail(err));
             });
     }
 }
@@ -65,10 +66,11 @@ export const fetchOrdersStart = () => {
 
 
 export const fetchOrders = () => {
-    return dispatch => {
+    return (dispatch, getState) => {
         dispatch(fetchOrdersStart());
-        setTimeout(()=> {
-            axios.get('/orders.json')
+        const auth = getState().auth.token ? getState().auth.token : undefined;
+        const queryParams = '&orderBy="userId"&equalTo="' + getState().auth.userID + '"';
+        axiosInstance.get('/orders.json?auth=' + auth + queryParams)
             .then(res => {
                 const orders = [];
                 for (let key in res.data) {
@@ -81,7 +83,6 @@ export const fetchOrders = () => {
             })
             .catch(err => {
                 dispatch(fetchOrdersError(err))
-            });        },3000)
-
+            });
     }
 }

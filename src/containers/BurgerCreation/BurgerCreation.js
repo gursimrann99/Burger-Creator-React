@@ -6,11 +6,11 @@ import Burger from '../../components/Burger/Burger';
 import Controls from '../../components/Burger/Controls/Controls';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
-import axios from '../../orders';
+import { axiosInstance } from '../../orders';
 //import Spinner from '../../components/UI/Spinner/Spinner';
 import ErrorHandler from '../../hoc/errorHandler/errorHandler';
 //import * as burgerCreationActions from '../../store/actions/index';
-import { addIngredient, removeIngredient } from '../../store/actions/index';
+import { addIngredient, removeIngredient, startPurchasing } from '../../store/actions/index';
 
 class BurgerCreation extends Component {
     state = {
@@ -67,7 +67,8 @@ class BurgerCreation extends Component {
         //     pathname: '/checkout',
         //     search: '?' + queryString
         // });
-        this.props.history.push('/checkout');
+        this.props.startPurchasing();
+        this.props.isAuthenticated ? this.props.history.push('/checkout') : this.props.history.push('/auth');
     }
 
     render() {
@@ -99,6 +100,7 @@ class BurgerCreation extends Component {
                         disabled={disabledInfo}
                         price={this.props.price}
                         purchasable={this.updatePurchase(this.props.ings)}
+                        isAuth={this.props.isAuthenticated}
                         ordered={this.purchaseHandler} />
                 </div>
             </Aux>
@@ -108,7 +110,8 @@ class BurgerCreation extends Component {
 const mapStateToProps = state => {
     return {
         ings: state.burgerCreation.ingredients,
-        price: state.burgerCreation.price
+        price: state.burgerCreation.price,
+        isAuthenticated : state.auth.token !== null
     }
 }
 // const mapDispatchToProps = dispatch => {
@@ -117,5 +120,5 @@ const mapStateToProps = state => {
 //         onIngredientRemove: (ingredient) => dispatch(burgerCreationActions.removeIngredient(ingredient))
 //     }
 //}
-export default connect(mapStateToProps, {addIngredient, removeIngredient})(ErrorHandler(BurgerCreation, axios));
+export default connect(mapStateToProps, { addIngredient, removeIngredient, startPurchasing })(ErrorHandler(BurgerCreation, axiosInstance));
 

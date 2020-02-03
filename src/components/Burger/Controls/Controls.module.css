@@ -1,6 +1,6 @@
 .Controls {
     width:100%;
-    background-color: lightsalmon;
+    background-color:rgba(197, 75, 9, 0.84);
     display: flex;
     flex-flow: column;
     align-items: center;

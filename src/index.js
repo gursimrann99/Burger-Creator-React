@@ -10,10 +10,12 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import burgerCreationReducer from './store/reducers/burgerCreation';
 import ordersReducer from './store/reducers/order';
+import authReducer from './store/reducers/auth';
 
 const rootReducer = combineReducers({
     burgerCreation: burgerCreationReducer,
-    order: ordersReducer
+    order: ordersReducer,
+    auth: authReducer
 });
 
 

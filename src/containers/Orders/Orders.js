@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import Order from '../../components/Order/Order';
-import axios from '../../orders';
+import { axiosInstance } from '../../orders';
 import ErrorHandler from '../../hoc/errorHandler/errorHandler';
 import { fetchOrders } from '..//../store/actions';
 import Spinner from '../../components/UI/Spinner/Spinner';
@@ -11,7 +11,7 @@ class Orders extends Component {
     componentDidMount() {
         this.props.fetchOrders();
     }
-    
+
     render() {
         let orders = <Spinner />
         if (!this.props.loading) {
@@ -35,4 +35,4 @@ const mapStateToProps = state => {
         loading: state.order.loading
     }
 }
-export default connect(mapStateToProps, { fetchOrders })(ErrorHandler(Orders, axios));
+export default connect(mapStateToProps, { fetchOrders })(ErrorHandler(Orders, axiosInstance));

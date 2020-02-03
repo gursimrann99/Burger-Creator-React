@@ -13,3 +13,9 @@ export const removeIngredient = (name) => {
         ingredientName: name
     }
 }
+
+export const startPurchasing = () => {
+    return {
+        type: actionTypes.PURCHASING
+    }
+}
