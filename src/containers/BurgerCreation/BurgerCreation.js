@@ -12,7 +12,7 @@ import ErrorHandler from '../../hoc/errorHandler/errorHandler';
 //import * as burgerCreationActions from '../../store/actions/index';
 import { addIngredient, removeIngredient, startPurchasing } from '../../store/actions/index';
 
-class BurgerCreation extends Component {
+export class BurgerCreation extends Component {
     state = {
         purchasing: false,
         //loading: false
@@ -111,7 +111,7 @@ const mapStateToProps = state => {
     return {
         ings: state.burgerCreation.ingredients,
         price: state.burgerCreation.price,
-        isAuthenticated : state.auth.token !== null
+        isAuthenticated: state.auth.token !== null
     }
 }
 // const mapDispatchToProps = dispatch => {
